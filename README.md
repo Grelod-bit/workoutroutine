@@ -13,3 +13,5 @@
 * Users can assign one or more classifications (tags) to a routine. The available categories (e.g., muscle group, goal, equipment) are stored in the database.
   
 * The application allows users to rate workout routines, leave comments, and view the date the comment was posted.
+
+* Quick test that this works on a new pc
