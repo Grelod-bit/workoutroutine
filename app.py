@@ -4,6 +4,7 @@ from flask import redirect, render_template, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
 import config
 import db
+import workouts
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -27,9 +28,7 @@ def create_workout():
     description = request.form["description"]
     user_id = session["user_id"]
 
-    sql = """INSERT INTO workouts (title, muscle_groups, goals, description, user_id) 
-    VALUES (?, ?, ?, ?, ?)"""
-    db.execute(sql, [title, muscle_groups, goals, description, user_id])
+    workouts.add_workout(title, muscle_groups, goals, description, user_id)
 
     return redirect("/")
 
