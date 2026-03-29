@@ -1,20 +1,26 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Workout Routine</title>
-  </head>
 
-  <body>
-    <h1>Workout Routine</h1>
+<head>
+  <title>Workout Routine</title>
+</head>
 
-    {% if session.username %}
-    <p>Olet kirjautunut nimellä {{ session.username }}</p>
-    {% endif %}
+<body>
+  <h1>Workout Routine</h1>
 
-    <p>
-      <a href="/login"> Kirjaudu sisään</a>
-      <a href="/register"> Luo tunnus</a>
-      <a href="/logout"> Kirjaudu ulos</a>
-    </p>
-  </body>
+  {% if session.username %}
+  <p>Welcome {{ session.username }}! Your id: {{ session.user_id }} </p>
+  {% endif %}
+
+  <p>
+    <a href="/login"> Login</a>
+    <a href="/register"> Register</a>
+    <a href="/logout"> Logout</a>
+  </p>
+
+  <p>
+    <a href="/new_workout">New workout</a>
+  </p>
+</body>
+
 </html>
