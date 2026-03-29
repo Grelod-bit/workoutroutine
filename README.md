@@ -1,4 +1,4 @@
-# Workout Routine
+## Workout Routine
 
 * Users can create an account and log in to the application.
 
@@ -13,3 +13,21 @@
 * Users can assign one or more classifications (tags) to a routine. The available categories (e.g., muscle group, goal, equipment) are stored in the database.
   
 * The application allows users to rate workout routines, leave comments, and view the date the comment was posted.
+
+## Installing the application
+
+Install `flask`-library:
+```bash
+ $ pip install flask
+```
+
+Initiate database tables:
+```bash
+ $ sqlite3 database.db < schema.sql
+```
+
+Start the application:
+
+```bash
+$ flask run
+```
