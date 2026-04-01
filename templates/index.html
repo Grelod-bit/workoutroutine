@@ -1,26 +1,24 @@
 <!doctype html>
 <html>
+  <head>
+    <title>Workout Routine</title>
+  </head>
 
-<head>
-  <title>Workout Routine</title>
-</head>
+  <body>
+    <h1>Workout Routine</h1>
 
-<body>
-  <h1>Workout Routine</h1>
+    {% if session.username %}
+    <p>Welcome {{ session.username }}!</p>
+    {% endif %}
 
-  {% if session.username %}
-  <p>Welcome {{ session.username }}! Your id: {{ session.user_id }} </p>
-  {% endif %}
+    <p>
+      <a href="/login"> Login</a>
+      <a href="/register"> Register</a>
+      <a href="/logout"> Logout</a>
+    </p>
 
-  <p>
-    <a href="/login"> Login</a>
-    <a href="/register"> Register</a>
-    <a href="/logout"> Logout</a>
-  </p>
-
-  <p>
-    <a href="/new_workout">New workout</a>
-  </p>
-</body>
-
+    <p>
+      <a href="/new_workout">New workout</a>
+    </p>
+  </body>
 </html>
