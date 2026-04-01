@@ -52,8 +52,7 @@ def create():
         db.execute(sql, [username, password_hash])
     except sqlite3.IntegrityError:
         return "ERROR: Username already taken"
-
-    return "Tunnus luotu"
+    return redirect("/login")
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -80,6 +79,7 @@ def login():
 
 @app.route("/logout")
 def logout():
-    del session["user_id"]
-    del session["username"]
+    if "user_id" in session:
+        del session["username"]
+        del session["user_id"]
     return redirect("/")
