@@ -28,6 +28,8 @@
 > sudo apt install python3-venv
 > ```
 
+---
+
 ### Clone this repository on your local machine
 ```bash
 git clone git@github.com:Grelod-bit/workoutroutine.git
