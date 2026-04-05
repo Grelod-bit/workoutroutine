@@ -15,55 +15,44 @@
 * The application allows users to rate workout routines, leave comments, and view the date the comment was posted.
 
 ## Installing the application
-This application is stable on Python version 3.13.7.
+
+> [!NOTE]
+> This application is stable on Python **3.13+**.
+
 > [!IMPORTANT]
-> Make sure you also have 'python3' and 'venv environment' installed on your computer before proceeding.
+> Ensure you have [Python](https://www.python.org/downloads/) and [SQLite](https://sqlite.org/download.html) installed on your computer before proceeding!
 
-### Installing Python on Windows: ###
-* https://www.python.org/downloads/
-* Install Python 3.13
-* check the box that says "Add Python to PATH"
+> [!TIP]
+> **For Linux users:** You typically need to install the `venv` module separately. Run:
+> ```bash
+> sudo apt install python3-venv
+> ```
 
-### Installing Python on Linux: ###
-Installing `Python3` and `Venv`
-```bash
-sudo apt update
-```
-```bash
-sudo apt install python3
-```
-```bash
-sudo apt install python3-venv
-```
-### Installing Python on MacOS: ###
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
+### Setup the Virtual Environment
 
-```bash
-brew install python
-```
-
----
-
-### Venv environment: ###
-
-**Create the Environment:**
+**1. Create the Environment:**
 ```bash
 python3 -m venv venv
 ```
 
-**Initiate Venv:**
+**2. Initiate Venv:**
 
 Linux/MacOS:
 ```bash
 source venv/bin/activate
 ```
 
-Windows CMD:
+Windows PowerShell:
 ```bash
-venv\Scripts\activate.bat
+.\venv\Scripts\Activate.ps1
 ```
+> [!NOTE]
+> If you get a script execution error, try running PowerShell as an administrator and use the following command:
+
+```bash
+Set-ExecutionPolicy RemoteSigned
+```
+
 ---
 
 Install `flask`-library:
