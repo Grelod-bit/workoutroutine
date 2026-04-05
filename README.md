@@ -28,31 +28,33 @@
 > sudo apt install python3-venv
 > ```
 
+### Clone this repository on your local machine
+```bash
+git clone git@github.com:Grelod-bit/workoutroutine.git
+```
 ### Setup the Virtual Environment
 
-**1. Create the Environment:**
+**1. Create the Venv:**
 ```bash
 python3 -m venv venv
 ```
 
 **2. Initiate Venv:**
 
-Linux/MacOS:
+**Linux/MacOS:**
 ```bash
 source venv/bin/activate
 ```
-
-Windows PowerShell:
+**Windows PowerShell:**
 ```bash
 .\venv\Scripts\Activate.ps1
 ```
 > [!NOTE]
-> If you get a script execution error, try running PowerShell as an administrator and use the following command:
+> If you get a script execution error, try running **PowerShell** as an administrator and use the following command:
 
 ```bash
 Set-ExecutionPolicy RemoteSigned
 ```
-
 ---
 
 Install `flask`-library:
