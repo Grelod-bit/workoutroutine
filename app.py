@@ -1,10 +1,11 @@
 import sqlite3
 from flask import Flask
-from flask import redirect, render_template, request, session
+from flask import redirect, flash, render_template, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
 import config
 import db
 import workouts
+import users
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -44,14 +45,15 @@ def create():
     password1 = request.form["password1"]
     password2 = request.form["password2"]
     if password1 != password2:
-        return "ERROR: passwords not matching"
-    password_hash = generate_password_hash(password1)
+        flash("ERROR: passwords not matching")
+        return redirect("/register")
 
     try:
-        sql = "INSERT INTO users (username, password_hash) VALUES (?, ?)"
-        db.execute(sql, [username, password_hash])
+        users.create_user(username, password1)
     except sqlite3.IntegrityError:
-        return "ERROR: Username already taken"
+        flash("ERROR: Username already taken")
+        return redirect("/register")
+
     return redirect("/login")
 
 
