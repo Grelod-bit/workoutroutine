@@ -1,31 +1,35 @@
 <!doctype html>
 <html>
+  <head>
+    <title>Workout Routine</title>
+  </head>
 
-<head>
-  <title>Workout Routine</title>
-</head>
-
-<body>
-  <h1>Workout Routine</h1>
-  <form action="/create_workout" method="post">
-    <p>
-      Title: <br />
-      <input type="text" name="title" />
-    </p>
-    <p>
-      Muscle Group(s): <br />
-      <input type="text" name="muscle_groups" />
-    </p>
-    <p>
-      Goal(s): <br />
-      <input type="text" name="goals" />
-    </p>
-    <p>
-      Description: <br />
-      <textarea name="description" rows="8" cols="60"></textarea>
-    </p>
-    <input type="submit" value="Create" />
-  </form>
-</body>
-
+  <body>
+    <h1>Workout Routine</h1>
+    <form action="/create_workout" method="post">
+      <p>
+        Title: <br />
+        <input type="text" name="title" maxlength="50" required />
+      </p>
+      <p>
+        Muscle Group(s): <br />
+        <input type="text" name="muscle_groups" maxlength="1000" required />
+      </p>
+      <p>
+        Goal(s): <br />
+        <input type="text" name="goals" maxlength="1000" required />
+      </p>
+      <p>
+        Description: <br />
+        <textarea
+          name="description"
+          rows="8"
+          cols="60"
+          maxlength="1000"
+          required
+        ></textarea>
+      </p>
+      <input type="submit" value="Create" />
+    </form>
+  </body>
 </html>

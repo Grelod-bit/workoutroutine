@@ -20,8 +20,18 @@
       {% endif %}
     </p>
 
-    <p>
+    <p>{% if session.username %}
       <a href="/new_workout">New workout</a>
+      {% endif %}
+    </p>
+
+    <p>
+      <h2>Workouts</h2>
+      <ul>
+      {%for workout in workouts%}
+      <li><a href="/workout/{{ workout.id }}">{{workout.title}}</a></li>
+      {% endfor %}
+      </ul>
     </p>
   </body>
 </html>

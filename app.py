@@ -13,7 +13,14 @@ app.secret_key = config.secret_key
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    all_workouts = workouts.get_workouts()
+    return render_template("index.html", workouts=all_workouts)
+
+
+@app.route("/workout/<int:workout_id>")
+def workout(workout_id):
+    workout = workouts.get_workout(workout_id)
+    return render_template("show_workout.html", workout=workout)
 
 
 @app.route("/new_workout")
@@ -54,7 +61,7 @@ def create():
         flash("ERROR: Username already taken")
         return redirect("/register")
 
-    return redirect("/login")
+    return redirect("/")
 
 
 @app.route("/login", methods=["GET", "POST"])
