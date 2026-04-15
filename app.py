@@ -60,6 +60,20 @@ def update_workout():
     return redirect("/workout/" + str(workout_id))
 
 
+@app.route("/remove_workout/<int:workout_id>", methods=["GET", "POST"])
+def remove_workout(workout_id):
+    if request.method == "GET":
+        workout = workouts.get_workout(workout_id)
+        return render_template("remove_workout.html", workout=workout)
+
+    if request.method == "POST":
+        if "remove" in request.form:
+            workouts.remove_workout(workout_id)
+            return redirect("/")
+        else:
+            return redirect("/workout/" + str(workout_id))
+
+
 @app.route("/register")
 def register():
     return render_template("register.html")

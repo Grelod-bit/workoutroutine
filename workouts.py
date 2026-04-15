@@ -36,3 +36,8 @@ def update_workout(workout_id, title, muscle_groups, goals, description):
     description=?
     WHERE id = ?"""
     db.execute(sql, [title, muscle_groups, goals, description, workout_id])
+
+
+def remove_workout(workout_id):
+    sql = "DELETE FROM workouts WHERE id = ?"
+    db.execute(sql, [workout_id])
