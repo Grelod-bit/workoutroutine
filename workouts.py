@@ -41,3 +41,12 @@ def update_workout(workout_id, title, muscle_groups, goals, description):
 def remove_workout(workout_id):
     sql = "DELETE FROM workouts WHERE id = ?"
     db.execute(sql, [workout_id])
+
+
+def find_workout(query):
+    sql = """SELECT id, title
+    FROM workouts
+    WHERE title LIKE ? OR description LIKE ? or muscle_groups LIKE ? or goals LIKE ?
+    ORDER BY id DESC"""
+    like = "%" + query + "%"
+    return db.query(sql, [like, like, like, like])

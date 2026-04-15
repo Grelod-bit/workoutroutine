@@ -17,6 +17,18 @@ def index():
     return render_template("index.html", workouts=all_workouts)
 
 
+@app.route("/find_workout")
+def find_workout():
+    query = request.args.get("query")
+
+    if query:
+        results = workouts.find_workout(query)
+    else:
+        query = ""
+        results = []
+    return render_template("find_workout.html", query=query, results=results)
+
+
 @app.route("/workout/<int:workout_id>")
 def workout(workout_id):
     workout = workouts.get_workout(workout_id)
