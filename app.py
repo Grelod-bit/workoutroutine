@@ -41,6 +41,25 @@ def create_workout():
     return redirect("/")
 
 
+@app.route("/edit_workout/<int:workout_id>")
+def edit_workout(workout_id):
+    workout = workouts.get_workout(workout_id)
+    return render_template("edit_workout.html", workout=workout)
+
+
+@app.route("/update_workout", methods=["POST"])
+def update_workout():
+    workout_id = request.form["workout_id"]
+    title = request.form["title"]
+    muscle_groups = request.form["muscle_groups"]
+    goals = request.form["goals"]
+    description = request.form["description"]
+
+    workouts.update_workout(workout_id, title, muscle_groups, goals, description)
+
+    return redirect("/workout/" + str(workout_id))
+
+
 @app.route("/register")
 def register():
     return render_template("register.html")

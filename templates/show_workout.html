@@ -6,13 +6,19 @@
 
   <body>
     <h1>{{workout.title}}</h1>
-  </body>
-  <p>{{workout.description}}</p>
-  <p>Muscle groups: {{workout.muscle_groups}}</p>
-  <p>Goals: {{workout.goals}}</p>
-  <p>Created by: {{workout.username}}</p>
+    {% if session.user_id == workout.user_id %}
+    <p>
+      <a href="/edit_workout/{{ workout.id }}">Edit</a>
+    </p>
+    {% endif %}
 
-  <p>
-    <a href="/">Front Page</a>
-  </p>
+    <p>{{workout.description}}</p>
+    <p>Muscle groups: {{workout.muscle_groups}}</p>
+    <p>Goals: {{workout.goals}}</p>
+    <p>Created by: {{workout.username}}</p>
+
+    <p>
+      <a href="/">Front Page</a>
+    </p>
+  </body>
 </html>
