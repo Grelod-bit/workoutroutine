@@ -1,6 +1,6 @@
 import sqlite3
 from flask import Flask
-from flask import redirect, flash, render_template, request, session
+from flask import abort, redirect, flash, render_template, request, session
 from werkzeug.security import generate_password_hash, check_password_hash
 import config
 import db
@@ -9,6 +9,11 @@ import users
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
+
+
+def require_login():
+    if "user_id" not in session:
+        abort(403)
 
 
 @app.route("/")
@@ -30,8 +35,10 @@ def find_workout():
 
 
 @app.route("/workout/<int:workout_id>")
-def workout(workout_id):
+def show_workout(workout_id):
     workout = workouts.get_workout(workout_id)
+    if not workout:
+        return abort(404)
     return render_template("show_workout.html", workout=workout)
 
 
@@ -42,6 +49,8 @@ def new_workout():
 
 @app.route("/create_workout", methods=["POST"])
 def create_workout():
+    require_login()
+
     title = request.form["title"]
     muscle_groups = request.form["muscle_groups"]
     goals = request.form["goals"]
@@ -55,13 +64,27 @@ def create_workout():
 
 @app.route("/edit_workout/<int:workout_id>")
 def edit_workout(workout_id):
+    require_login()
     workout = workouts.get_workout(workout_id)
+    if not workout:
+        return abort(404)
+    if workout["user_id"] != session["user_id"]:
+        abort(403)
     return render_template("edit_workout.html", workout=workout)
 
 
 @app.route("/update_workout", methods=["POST"])
 def update_workout():
+    require_login()
     workout_id = request.form["workout_id"]
+    workout = workouts.get_workout(workout_id)
+
+    if not workout:
+        return abort(404)
+
+    if workout["user_id"] != session["user_id"]:
+        abort(403)
+
     title = request.form["title"]
     muscle_groups = request.form["muscle_groups"]
     goals = request.form["goals"]
@@ -74,8 +97,14 @@ def update_workout():
 
 @app.route("/remove_workout/<int:workout_id>", methods=["GET", "POST"])
 def remove_workout(workout_id):
+    require_login()
+    workout = workouts.get_workout(workout_id)
+    if not workout:
+        return abort(404)
+    if workout["user_id"] != session["user_id"]:
+        abort(403)
+
     if request.method == "GET":
-        workout = workouts.get_workout(workout_id)
         return render_template("remove_workout.html", workout=workout)
 
     if request.method == "POST":

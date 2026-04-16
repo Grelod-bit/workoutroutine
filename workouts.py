@@ -25,7 +25,8 @@ def get_workout(workout_id):
     FROM workouts AS w
     LEFT JOIN users AS u ON w.user_id  = u.id
     WHERE w.id = ?"""
-    return db.query(sql, [workout_id])[0]
+    result = db.query(sql, [workout_id])
+    return result[0] if result else None
 
 
 def update_workout(workout_id, title, muscle_groups, goals, description):
