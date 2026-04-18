@@ -67,8 +67,14 @@ pip install flask
 ```
 
 Initiate database tables:
+
+**Linux/MacOS:**
 ```bash
 sqlite3 database.db < schema.sql
+```
+**Windows PowerShell:**
+```bash
+Get-Content schema.sql | sqlite3 database.db
 ```
 
 Start the application:
