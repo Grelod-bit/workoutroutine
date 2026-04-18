@@ -34,6 +34,8 @@
 ```bash
 git clone https://github.com/Grelod-bit/workoutroutine.git
 ```
+### Go to the workoutroutine directory
+
 ### Setup the Virtual Environment
 
 **1. Create the Venv:**
