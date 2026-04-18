@@ -20,7 +20,7 @@
 > This application is stable on Python **3.13+**.
 
 > [!IMPORTANT]
-> Ensure you have [Python](https://www.python.org/downloads/) and [SQLite](https://sqlite.org/download.html) installed on your computer before proceeding!
+> Ensure you have [Python](https://www.python.org/downloads/) , [SQLite](https://sqlite.org/download.html) and [GIT](https://git-scm.com/) installed on your computer before proceeding!
 
 > [!TIP]
 > **For Linux users:** You typically need to install the `venv` module separately. Run:
@@ -32,7 +32,7 @@
 
 ### Clone this repository on your local machine
 ```bash
-git clone git@github.com:Grelod-bit/workoutroutine.git
+git clone https://github.com/Grelod-bit/workoutroutine.git
 ```
 ### Setup the Virtual Environment
 
