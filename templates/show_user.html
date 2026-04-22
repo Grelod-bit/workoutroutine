@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <title>User {{user.username}}</title>
+  </head>
+
+  <body>
+    <h1>User {{user.username}}</h1>
+    {% if workouts|count == 1 %}
+    <p>User {{user.username}} has a total of {{ workouts|count }} workout.</p>
+    {% else %}
+    <p>User {{user.username}} has a total of {{ workouts|count }} workouts.</p>
+    {% endif %}
+
+    <h2>Workouts</h2>
+    <ul>
+      {% for workout in workouts %}
+      <li><a href="/workout/{{ workout.id }}">{{ workout.title }}</a></li>
+      {% endfor %}
+    </ul>
+    <p>
+      <a href="/">Front Page</a>
+    </p>
+  </body>
+</html>

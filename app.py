@@ -23,6 +23,15 @@ def index():
     return render_template("index.html", workouts=all_workouts)
 
 
+@app.route("/user/<int:user_id>")
+def show_user(user_id):
+    user = users.get_user(user_id)
+    if not user:
+        return abort(404)
+    workouts=users.get_workouts(user_id)
+    return render_template("show_user.html", user=user, workouts=workouts)
+
+
 @app.route("/find_workout")
 def find_workout():
     query = request.args.get("query")

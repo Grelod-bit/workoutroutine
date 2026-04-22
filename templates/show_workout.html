@@ -16,7 +16,9 @@
     <p>{{workout.description}}</p>
     <p>Muscle groups: {{workout.muscle_groups}}</p>
     <p>Goals: {{workout.goals}}</p>
-    <p>Created by: {{workout.username}}</p>
+    <p>
+      Created by: <a href="/user/{{ workout.user_id }}">{{workout.username}}</a>
+    </p>
 
     <p>
       <a href="/">Front Page</a>
