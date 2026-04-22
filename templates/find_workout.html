@@ -7,7 +7,16 @@
   <body>
     <h1>Search</h1>
     <form action="/find_workout" method="get">
-      <p>Keyword: <input type="text" name="query" value="{{ query }}" /></p>
+      <p>
+        Keyword:
+        <input
+          type="text"
+          name="query"
+          value="{{ query }}"
+          pattern="[A-Za-z0-9\s]*[A-Za-z0-9][A-Za-z0-9\s]*"
+          title="Enter at least one letter or number; punctuation-only searches are not allowed."
+        />
+      </p>
       <input type="submit" value="Send" />
     </form>
 

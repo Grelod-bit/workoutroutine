@@ -6,6 +6,7 @@ import config
 import db
 import workouts
 import users
+import re
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -25,8 +26,9 @@ def index():
 @app.route("/find_workout")
 def find_workout():
     query = request.args.get("query")
-
     if query:
+        if re.fullmatch(r"[^\w\s]", query):
+            abort(403)
         results = workouts.find_workout(query)
     else:
         query = ""
@@ -52,9 +54,17 @@ def create_workout():
     require_login()
 
     title = request.form["title"]
+    if not title or len(title) > 50:
+        abort(403)
     muscle_groups = request.form["muscle_groups"]
+    if not muscle_groups or len(muscle_groups) > 500:
+        abort(403)
     goals = request.form["goals"]
+    if not goals or len(goals) > 500:
+        abort(403)
     description = request.form["description"]
+    if not description or len(description) > 1000:
+        abort(403)
     user_id = session["user_id"]
 
     workouts.add_workout(title, muscle_groups, goals, description, user_id)

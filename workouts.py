@@ -47,7 +47,7 @@ def remove_workout(workout_id):
 def find_workout(query):
     sql = """SELECT id, title
     FROM workouts
-    WHERE title LIKE ? OR description LIKE ? or muscle_groups LIKE ? or goals LIKE ?
+    WHERE title LIKE ? OR muscle_groups LIKE ? OR goals LIKE ?
     ORDER BY id DESC"""
     like = "%" + query + "%"
-    return db.query(sql, [like, like, like, like])
+    return db.query(sql, [like, like, like])
