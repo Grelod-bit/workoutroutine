@@ -28,7 +28,7 @@ def show_user(user_id):
     user = users.get_user(user_id)
     if not user:
         return abort(404)
-    workouts=users.get_workouts(user_id)
+    workouts = users.get_workouts(user_id)
     return render_template("show_user.html", user=user, workouts=workouts)
 
 
@@ -166,17 +166,15 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
-        sql = "SELECT id, password_hash FROM users WHERE username = ?"
-        result = db.query(sql, [username])[0]
-        user_id = result["id"]
-        password_hash = result["password_hash"]
+        user_id = users.check_login(username, password)
 
-        if check_password_hash(password_hash, password):
+        if user_id:
             session["user_id"] = user_id
             session["username"] = username
             return redirect("/")
         else:
-            return "ERROR: wrong username or password"
+            flash("ERROR: wrong username or password")
+            return redirect("/login")
 
 
 @app.route("/logout")
