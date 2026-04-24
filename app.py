@@ -105,9 +105,17 @@ def update_workout():
         abort(403)
 
     title = request.form["title"]
+    if not title or len(title) > 50:
+        abort(403)
     muscle_groups = request.form["muscle_groups"]
+    if not muscle_groups or len(muscle_groups) > 500:
+        abort(403)
     goals = request.form["goals"]
+    if not goals or len(goals) > 500:
+        abort(403)
     description = request.form["description"]
+    if not description or len(description) > 1000:
+        abort(403)
 
     workouts.update_workout(workout_id, title, muscle_groups, goals, description)
 
