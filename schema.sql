@@ -8,10 +8,21 @@ CREATE TABLE users (
 CREATE TABLE workouts (
     id INTEGER PRIMARY KEY,
     title TEXT,
-    muscle_groups TEXT,
-    goals TEXT,
     description TEXT,
     user_id INTEGER REFERENCES users
+);
+
+CREATE TABLE classes (
+    id INTEGER PRIMARY KEY,
+    title TEXT,
+    value TEXT
+);
+
+CREATE TABLE workout_classes (
+    id INTEGER PRIMARY KEY,
+    workout_id INTEGER REFERENCES workouts,
+    title TEXT,
+    value TEXT
 );
 
 

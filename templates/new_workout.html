@@ -15,14 +15,7 @@
         Title: <br />
         <input type="text" name="title" maxlength="50" required />
       </p>
-      <p>
-        Muscle Group(s): <br />
-        <input type="text" name="muscle_groups" maxlength="500" required />
-      </p>
-      <p>
-        Goal(s): <br />
-        <input type="text" name="goals" maxlength="500" required />
-      </p>
+
       <p>
         Description: <br />
         <textarea
@@ -33,7 +26,17 @@
           required
         ></textarea>
       </p>
+
+      {% for class in classes %}
+      <p>{{ class }}:</p>
+        {% for option in classes[class] %}
+          <input type="checkbox" name="class" value="{{ class }}:{{ option }}" /> {{ option }} <br />
+        {% endfor %}
+      </p>
+      {% endfor %}
+
       <input type="submit" value="Create" />
     </form>
   </body>
 </html>
+

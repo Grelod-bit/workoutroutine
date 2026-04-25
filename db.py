@@ -14,6 +14,8 @@ def execute(sql, params=[]):
     with con:
         result = con.execute(sql, params)
     con.commit()
+    g.last_insert_id = result.lastrowid
+    con.close
 
 
 def last_insert_id():

@@ -1,11 +1,31 @@
 import db
 
 
-def add_workout(title, muscle_groups, goals, description, user_id):
+def get_all_classes():
+    sql = "SELECT title, value FROM classes ORDER BY id"
+    result = db.query(sql)
 
-    sql = """INSERT INTO workouts (title, muscle_groups, goals, description, user_id)
-    VALUES (?, ?, ?, ?, ?)"""
-    db.execute(sql, [title, muscle_groups, goals, description, user_id])
+    classes = {}
+    for title, value in result:
+        classes[title] = []
+    for title, value in result:
+        classes[title].append(value)
+
+    return classes
+
+
+def add_workout(title, description, user_id, classes):
+
+    sql = """INSERT INTO workouts (title, description, user_id)
+    VALUES (?, ?, ?)"""
+    db.execute(sql, [title, description, user_id])
+
+    sql = "INSERT INTO workout_classes (workout_id, title, value) VALUES (?,?,?)"
+
+    workout_id = db.last_insert_id()
+
+    for title, value in classes:
+        db.execute(sql, [workout_id, title, value])
 
 
 def get_workouts():
@@ -13,12 +33,15 @@ def get_workouts():
     return db.query(sql)
 
 
+def get_classes(workout_id):
+    sql = "SELECT title, value FROM workout_classes WHERE workout_id = ?"
+    return db.query(sql, [workout_id])
+
+
 def get_workout(workout_id):
     sql = """SELECT
     w.id,
     w.title,
-    w.muscle_groups,
-    w.goals,
     w.description,
     u.username,
     u.id AS user_id
@@ -29,14 +52,12 @@ def get_workout(workout_id):
     return result[0] if result else None
 
 
-def update_workout(workout_id, title, muscle_groups, goals, description):
+def update_workout(workout_id, title, description):
     sql = """UPDATE workouts SET
     title=?,
-    muscle_groups =?,
-    goals=?,
     description=?
     WHERE id = ?"""
-    db.execute(sql, [title, muscle_groups, goals, description, workout_id])
+    db.execute(sql, [title, description, workout_id])
 
 
 def remove_workout(workout_id):
@@ -47,7 +68,7 @@ def remove_workout(workout_id):
 def find_workout(query):
     sql = """SELECT id, title
     FROM workouts
-    WHERE title LIKE ? OR muscle_groups LIKE ? OR goals LIKE ?
+    WHERE title LIKE ? OR description LIKE ?
     ORDER BY id DESC"""
     like = "%" + query + "%"
-    return db.query(sql, [like, like, like])
+    return db.query(sql, [like, like])

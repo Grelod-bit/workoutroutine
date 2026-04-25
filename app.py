@@ -8,6 +8,8 @@ import workouts
 import users
 import re
 
+# FIXME - Remove doesn't work with tags (classifications) selected!
+
 app = Flask(__name__)
 app.secret_key = config.secret_key
 
@@ -50,12 +52,15 @@ def show_workout(workout_id):
     workout = workouts.get_workout(workout_id)
     if not workout:
         return abort(404)
-    return render_template("show_workout.html", workout=workout)
+    classes = workouts.get_classes(workout_id)
+    return render_template("show_workout.html", workout=workout, classes=classes)
 
 
 @app.route("/new_workout")
 def new_workout():
-    return render_template("new_workout.html")
+    require_login()
+    classes = workouts.get_all_classes()
+    return render_template("new_workout.html", classes=classes)
 
 
 @app.route("/create_workout", methods=["POST"])
@@ -65,18 +70,19 @@ def create_workout():
     title = request.form["title"]
     if not title or len(title) > 50:
         abort(403)
-    muscle_groups = request.form["muscle_groups"]
-    if not muscle_groups or len(muscle_groups) > 500:
-        abort(403)
-    goals = request.form["goals"]
-    if not goals or len(goals) > 500:
-        abort(403)
     description = request.form["description"]
     if not description or len(description) > 1000:
         abort(403)
+
     user_id = session["user_id"]
 
-    workouts.add_workout(title, muscle_groups, goals, description, user_id)
+    classes = []
+    for entry in request.form.getlist("class"):
+        if entry:
+            parts = entry.split(":")
+            classes.append((parts[0], parts[1]))
+    print(classes)
+    workouts.add_workout(title, description, user_id, classes)
 
     return redirect("/")
 
@@ -107,17 +113,11 @@ def update_workout():
     title = request.form["title"]
     if not title or len(title) > 50:
         abort(403)
-    muscle_groups = request.form["muscle_groups"]
-    if not muscle_groups or len(muscle_groups) > 500:
-        abort(403)
-    goals = request.form["goals"]
-    if not goals or len(goals) > 500:
-        abort(403)
     description = request.form["description"]
     if not description or len(description) > 1000:
         abort(403)
 
-    workouts.update_workout(workout_id, title, muscle_groups, goals, description)
+    workouts.update_workout(workout_id, title, description)
 
     return redirect("/workout/" + str(workout_id))
 
